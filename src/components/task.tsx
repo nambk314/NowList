@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text } from 'react-native';
 
-const task = () => {
+const Task = () => {
     return (
         <Text>
             This is a task
@@ -9,4 +9,4 @@ const task = () => {
         </Text>
     )
 }
-export default task;
+export default Task;

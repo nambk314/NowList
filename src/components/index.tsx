@@ -1,5 +1,5 @@
-import header from './header';
-import task from './task';
-import button from './button';
+import Header from './Header';
+import Task from './Task';
+import LockButton from './LockButton';
 
-export {header, task, button};
+export { Header, Task, LockButton };
