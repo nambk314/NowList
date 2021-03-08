@@ -18,56 +18,40 @@ import {
     ReloadInstructions,
   } from 'react-native/Libraries/NewAppScreen';
 import { Header, LockButton, Task } from '../components/Index';
-
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import Now from './Now'
+import Archive from './Archive'
+import NavigationDrawerStructure from '../components/NavigationDrawer'
+// To improve Android application speed: https://reactnative.dev/docs/hermes
+// declare const global: {HermesInternal: null | {}};
+const Stack = createStackNavigator();
+const ConfigureOption = (name:string) => ({
+    title: name,
+    headerTintColor: '#fff',
+    headerStyle: {
+        backgroundColor: '#D7BE69',
+    },
+})
 
 const MainScreen = () => {
     return (
         <>
-        <StatusBar barStyle="dark-content" />
-        <SafeAreaView>
-            <ScrollView
-            contentInsetAdjustmentBehavior="automatic"
-            style={styles.scrollView}>
-            <Header />
-            <Task />
-            <LockButton></LockButton>
-            {/* {global.HermesInternal == null ? null : (
-                <View style={styles.engine}>
-                <Text style={styles.footer}>Engine: Hermes</Text>
-                </View>
-            )} */}
-
-
-            {/* <View style={styles.body}>
-                <View style={styles.sectionContainer}>
-                <Text style={styles.sectionTitle}>Step One</Text>
-                <Text style={styles.sectionDescription}>
-                    Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-                    screen and then come back to see your edits.
-                </Text>
-                </View>
-                <View style={styles.sectionContainer}>
-                <Text style={styles.sectionTitle}>See Your Changes</Text>
-                <Text style={styles.sectionDescription}>
-                    <ReloadInstructions />
-                </Text>
-                </View>
-                <View style={styles.sectionContainer}>
-                <Text style={styles.sectionTitle}>Debug</Text>
-                <Text style={styles.sectionDescription}>
-                    <DebugInstructions />
-                </Text>
-                </View>
-                <View style={styles.sectionContainer}>
-                <Text style={styles.sectionTitle}>Learn More</Text>
-                <Text style={styles.sectionDescription}>
-                    Read the docs to discover what to do next:
-                </Text>
-                </View>
-                <LearnMoreLinks />
-            </View> */}
-            </ScrollView>
-        </SafeAreaView>
+        <StatusBar barStyle="light-content" />
+            <NavigationContainer>
+                <Stack.Navigator>
+                <Stack.Screen
+                    name="Now"
+                    component={Now}
+                    options={ConfigureOption('Now')}
+                />
+                <Stack.Screen
+                    name="Archive"
+                    component={Archive}
+                    options={ConfigureOption('Archive')}
+                />
+                </Stack.Navigator>
+            </NavigationContainer>
     </>
     )
 }

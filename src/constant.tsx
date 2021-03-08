@@ -1,0 +1,3 @@
+const HEADER_COLOR = "#D4AF37";
+
+export {HEADER_COLOR};

@@ -7,16 +7,23 @@
  *
  * @format
  */
-
 import React from 'react';
 
-import MainScreen from './src/screens/MainScreen'
+import MainScreen from './src/screens/MainScreen';
+import Navigator from './src/routes/drawer';
+import RootDrawerNavigator from './src/routes/drawer';
+import { StatusBar } from 'react-native';
+
 // To improve Android application speed: https://reactnative.dev/docs/hermes
 // declare const global: {HermesInternal: null | {}};
 
 const App = () => {
   return (
-    < MainScreen />
+    <>
+      <StatusBar barStyle="light-content" />
+      <RootDrawerNavigator />
+    </>
+      
   );
 };
 
