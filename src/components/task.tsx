@@ -1,28 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
     Text, 
     View, 
     TouchableOpacity, 
     StyleSheet,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { FONT_SIZE } from '../constant';
 
 const Task = ( props: { task: String } ) => {
+    const [task, setTask] = useState('');
     return (
-        <View style={styles.container}>
-            <TouchableOpacity>
-                <Text style={styles.text}>
-                    This is a task
-                </Text>
-            </TouchableOpacity>
+        <View style={ {flex: 1} }>
+            <View style={styles.container}>
+                <TouchableOpacity>
+                    <Text style={styles.text}>
+                        This is a task
+                    </Text>
+                </TouchableOpacity>
+            </View>
         </View>
+        
         
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-      // flex: 1,
-      height: 80,
+      height: 4*FONT_SIZE,
       borderBottomColor: '#bbb',
       borderStyle: 'solid',
       borderBottomWidth: StyleSheet.hairlineWidth,
@@ -34,9 +39,9 @@ const styles = StyleSheet.create({
     text: {
       flex: 5,
       fontWeight: '400',
-      fontSize: 18,
-      marginVertical: 30,
-      marginHorizontal: 30,
+      fontSize: FONT_SIZE,
+      marginVertical: 1.5*FONT_SIZE,
+      marginHorizontal: 1.5*FONT_SIZE,
       width: 'auto',
       alignSelf: 'center',
     },
