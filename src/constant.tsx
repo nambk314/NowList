@@ -1,3 +1,3 @@
 const HEADER_COLOR = "#D4AF37";
-
-export {HEADER_COLOR};
+const FONT_SIZE = 20;
+export {HEADER_COLOR, FONT_SIZE};
