@@ -11,8 +11,12 @@ import styles from './styles';
 import { FONT_SIZE } from '../constant';
 
 
-const Add = () => {
+const Add = (props : { onAdd : any }) => {
   const [text, setText] = useState('');
+  const handlePress = () => {
+    props.onAdd(text);
+    setText('');
+  }
   return (
       <View style={styles.container}>
         <TextInput
@@ -23,7 +27,7 @@ const Add = () => {
         />
         <TouchableOpacity
           style={styles.buttonAdd}
-          onPress={() => console.log("click")}
+          onPress={handlePress}
         >
           <Text style={styles.textAdd}>Add</Text>
         </TouchableOpacity>

@@ -1,18 +1,30 @@
 import * as React from 'react';
+import { useContext } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Add from '../components/Add';
 import Task from '../components/Task';
+import { NowContext } from '../context/ListContext';
 
 
 function Now() {
-  return (
+
+    const [state, dispatch] = React.useContext(NowContext);
+
+    const taskLists = state.now.map((task, index)=> <Task key={index} task={task}></Task>)
+
+    const addTask = (task : string) => {
+        dispatch({
+            type: 'ADD_NOW_TASK',
+            payload: task,
+        })
+    }
+    return (
         <View style={styles.container}>
-            <Add></Add>
-            <Task task="Test Task"></Task>
-            <Task task="Test Task 2"></Task>
+            <Add onAdd={addTask}></Add>
+            {taskLists}
         </View>
-  );
+    );
 }
 
 const styles = StyleSheet.create({
