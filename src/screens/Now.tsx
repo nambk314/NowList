@@ -9,16 +9,13 @@ import { NowContext } from '../context/ListContext';
 
 function Now() {
 
-    const [state, dispatch] = React.useContext(NowContext);
+    const { state, addTask, editTask } = React.useContext(NowContext);
 
-    const taskLists = state.now.map((task, index)=> <Task key={index} task={task}></Task>)
+    const taskLists = state.now.map((task, index)=> {
+        console.log(`test list ${index}`);
+        return (<Task key={index} index={index} task={task} onEdit={editTask}></Task>)
+    })
 
-    const addTask = (task : string) => {
-        dispatch({
-            type: 'ADD_NOW_TASK',
-            payload: task,
-        })
-    }
     return (
         <View style={styles.container}>
             <Add onAdd={addTask}></Add>

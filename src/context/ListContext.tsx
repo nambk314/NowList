@@ -24,6 +24,11 @@ const reducer = (state : any, action : any) => {
                     .splice(0, action.payload)
                     .concat(state.now.splice(action.payload+1, state.now.length))
             }
+        case 'EDIT_NOW_TASK':
+            state.now[action.index] = action.value
+            return {
+                now: [...state.now]
+            }
         default:
             throw new Error();
     }
@@ -31,9 +36,28 @@ const reducer = (state : any, action : any) => {
 
 export const ListContextProvider = (props : any) => {
     const [state, dispatch] = useReducer(reducer, initialState);
-  
+    const addTask = (task : string) => {
+        dispatch({
+            type: 'ADD_NOW_TASK',
+            payload: task,
+        })
+    }
+
+    const editTask = (index: number, value: string) => {
+        dispatch({
+            type: 'EDIT_NOW_TASK',
+            payload: value,
+            index: index,
+        })
+    }
     return (
-      <NowContext.Provider value={[state, dispatch]}>
+      <NowContext.Provider 
+        value={{
+            state, 
+            dispatch,
+            addTask, 
+            editTask,
+        }}>
         {props.children}
       </NowContext.Provider>
     );
