@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { 
     Text, 
     View, 
@@ -16,6 +16,10 @@ const Task = ( props: { index: number, task: string, onEdit: any } ) => {
     const [lastTap, setLastTap] = useState(0);
     const [firstTap, setFirstTap] = useState(true);
     const [timer, setTimer] = useState(undefined);
+
+    useEffect(() => {
+        setTask(props.task);
+    },[props.task])
 
     //Handle style for when the elements are done
     const textStyle = () => {
@@ -51,8 +55,9 @@ const Task = ( props: { index: number, task: string, onEdit: any } ) => {
     }
 
     const uneditable = () => {
+        console.log(`test task: ${task}`)
         return (
-            <SwipeElement>
+            <SwipeElement taskIndex={props.index}>
                 <View style={styles.container}>
                     <TouchableOpacity onPress={handleTaps}>
                             <Text style={textStyle()}>

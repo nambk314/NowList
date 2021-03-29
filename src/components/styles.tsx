@@ -33,6 +33,25 @@ const styles = StyleSheet.create({
       width: 'auto',
       alignSelf: 'flex-end',
     },
+    buttonDelete: {
+      height: 4*FONT_SIZE,
+      borderBottomColor: '#bbb',
+      borderStyle: 'solid',
+      borderBottomWidth: StyleSheet.hairlineWidth,
+      flexDirection: 'row',
+      position: 'relative',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      backgroundColor: '#d11a2a',
+      paddingHorizontal: 0.8*FONT_SIZE,
+    },
+    textDelete: {
+      fontWeight: '400',
+      fontSize: FONT_SIZE,
+      color: '#fff',
+      width: 'auto',
+      alignSelf: 'center',
+    },
   });
 
 export default styles;

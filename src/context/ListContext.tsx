@@ -15,18 +15,22 @@ const initialState = {
 const reducer = (state : any, action : any) => {
     switch (action.type) {
         case 'ADD_NOW_TASK':
-            return {
-                now: [...state.now, action.payload]
+            if (action.payload) {
+                return {
+                    now: [...state.now, action.payload]
+                }
             }
         case 'DEL_NOW_TASK':
+            const newList = state.now.filter((item, index) => index !== action.payload);
             return {
-                now: state.now
-                    .splice(0, action.payload)
-                    .concat(state.now.splice(action.payload+1, state.now.length))
+                ...state,
+                now: newList,
             }
         case 'EDIT_NOW_TASK':
-            state.now[action.index] = action.value
+            state.now[action.payload.index] = action.payload.value;
+            console.log(`test edit: ${JSON.stringify(state)} + ${action.payload.value}`);
             return {
+                ...state,
                 now: [...state.now]
             }
         default:
@@ -43,11 +47,20 @@ export const ListContextProvider = (props : any) => {
         })
     }
 
-    const editTask = (index: number, value: string) => {
+    const editTask = (index: rnumber, value: string) => {
         dispatch({
             type: 'EDIT_NOW_TASK',
-            payload: value,
-            index: index,
+            payload: {
+                value: value,
+                index: index,
+            },
+        })
+    }
+
+    const deleteTask = (index: number) => {
+        dispatch({
+            type: 'DEL_NOW_TASK',
+            payload: index,
         })
     }
     return (
@@ -57,6 +70,7 @@ export const ListContextProvider = (props : any) => {
             dispatch,
             addTask, 
             editTask,
+            deleteTask,
         }}>
         {props.children}
       </NowContext.Provider>
