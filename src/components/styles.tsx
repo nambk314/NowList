@@ -52,6 +52,18 @@ const styles = StyleSheet.create({
       width: 'auto',
       alignSelf: 'center',
     },
+    buttonArchive: {
+      height: 4*FONT_SIZE,
+      borderBottomColor: '#bbb',
+      borderStyle: 'solid',
+      borderBottomWidth: StyleSheet.hairlineWidth,
+      flexDirection: 'row',
+      position: 'relative',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      backgroundColor: '#3CB371',
+      paddingHorizontal: 0.8*FONT_SIZE,
+    },
   });
 
 export default styles;

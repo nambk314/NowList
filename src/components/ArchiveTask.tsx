@@ -7,61 +7,23 @@ import {
 } from 'react-native';
 import SwipeElement from './SwipeElement';
 import styles from './styles';
-import { NOW } from '../constant';
+import { ARCHIVE } from '../constant';
 
-const Task = ( props: { index: number, task: string, onEdit: any } ) => {
+const ArchiveTask = ( props: { index: number, task: string, onEdit: any } ) => {
     const [task, setTask] = useState(props.task);
-    const [done, setDone] = useState(false);
-    const [edit, setEdit] = useState(false);
-    //Handle double tap
-    const [lastTap, setLastTap] = useState(0);
-    const [firstTap, setFirstTap] = useState(true);
-    const [timer, setTimer] = useState(undefined);
 
     useEffect(() => {
         setTask(props.task);
     },[props.task])
 
-    //Handle style for when the elements are done
-    const textStyle = () => {
-        const status : {}[] = [styles.text];
-        if (done) {
-            status.push(
-                {
-                    textDecorationLine: "line-through",
-                }
-            )
-        }
-        return status;
-    };
-
-    const handleTaps = () => {
-        const now = Date.now();
-        const DELAY = 300;
-        //Currently doesn't work together yet for dCLick and sClick
-        setFirstTap(!firstTap);
-        //Only editable if the task is not done
-        if (firstTap && !done) {
-            setTimer(setTimeout(() => {
-                setEdit(true);
-                setFirstTap(true);
-            }, DELAY));
-        } else {
-            if ((now - lastTap) < DELAY) {
-                timer && clearTimeout(timer);
-                setDone(true);
-            } 
-        }
-        setLastTap(now);
-    }
 
     const uneditable = () => {
         console.log(`test task: ${task}`)
         return (
-            <SwipeElement taskIndex={props.index} type={NOW}>
+            <SwipeElement taskIndex={props.index} type={ARCHIVE}>
                 <View style={styles.container}>
                     <TouchableOpacity onPress={handleTaps}>
-                            <Text style={textStyle()}>
+                            <Text>
                                 {task}
                             </Text>
                     </TouchableOpacity>
@@ -97,9 +59,9 @@ const Task = ( props: { index: number, task: string, onEdit: any } ) => {
 
     return (
         <View>
-            {edit ? editable() : uneditable()} 
+            {uneditable()} 
         </View>
          
     )
 }
-export default Task;
+export default ArchiveTask;

@@ -1,3 +1,5 @@
 const HEADER_COLOR = "#D4AF37";
 const FONT_SIZE = 16;
-export {HEADER_COLOR, FONT_SIZE};
+const ARCHIVE = 'archive'
+const NOW = 'now'
+export {HEADER_COLOR, FONT_SIZE, ARCHIVE, NOW};
