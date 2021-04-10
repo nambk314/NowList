@@ -4,12 +4,16 @@ export const NowContext = createContext({});
 
 const initialState = {
     now: [
-        'Task 1',
-        'Task 2',
-        'Task 3',
+        {
+            content: 'task 1',
+            done: false,
+        },
     ], 
     archive: [
-        'Archive task',
+        {
+            content: 'archive task',
+            done: false,
+        },
     ],
     loading: false,
     error: null,
@@ -20,7 +24,14 @@ const reducer = (state : any, action : any) => {
         case 'ADD_NOW_TASK':
             if (action.payload) {
                 return {
-                    now: [...state.now, action.payload]
+                    ...state,
+                    now: [
+                        ...state.now, 
+                        {
+                            content: action.task,
+                            done: false,
+                        }
+                    ]
                 }
             }
         case 'DEL_NOW_TASK':
@@ -29,32 +40,34 @@ const reducer = (state : any, action : any) => {
                 ...state,
                 now: newList,
             }
+        // We can't edit tasks that are already done
         case 'EDIT_NOW_TASK':
-            state.now[action.payload.index] = action.payload.value;
+            state.now[action.payload.index] = {
+                content: action.payload.task.content,
+                done: action.payload.task.done,
+            }
             return {
                 ...state,
                 now: [...state.now]
             }
         case 'MOVE_NOW_TO_ARCHIVE':
-            const archiveItem = state.now[action.payload];
-            const nowList = state.now.filter((item, index) => index !== action.payload);
+            const archiveItem = state.now[action.index];
+            const nowList = state.now.filter((item, index) => index !== action.index);
             state.archive.push(archiveItem);
-            console.log(JSON.stringify(state));
-            console.log(archiveItem);
             return {
                 ...state,
                 now: nowList,
                 archive: [...state.archive],
             }
         case 'MOVE_ARCHIVE_TO_NOW':
-            const nowItem = state.archive[action.payload];
-            const archiveList = state.archive.filter((item, index) => index !== action.payload);
+            const nowItem = state.archive[action.index];
+            const archiveList = state.archive.filter((item, index) => index !== action.index);
             state.now.push(nowItem);            
             return {
                 ...state,
                 now: [...state.now],
                 archive: archiveList,
-            }    
+            }
         default:
             throw new Error();
     }
@@ -65,16 +78,16 @@ export const ListContextProvider = (props : any) => {
     const addTask = (task : string) => {
         dispatch({
             type: 'ADD_NOW_TASK',
-            payload: task,
+            task,
         })
     }
 
-    const editTask = (index: number, value: string) => {
+    const editTask = (index: number, task: any) => {
         dispatch({
             type: 'EDIT_NOW_TASK',
             payload: {
-                value: value,
-                index: index,
+                task,
+                index,
             },
         })
     }
@@ -82,21 +95,21 @@ export const ListContextProvider = (props : any) => {
     const deleteTask = (index: number) => {
         dispatch({
             type: 'DEL_NOW_TASK',
-            payload: index,
+            index,
         })
     }
 
     const moveNowToArchive = (index: number) => {
         dispatch({
             type: 'MOVE_NOW_TO_ARCHIVE',
-            payload: index,
+            index,
         })
     }
 
     const moveArchiveToNow = (index: number) => {
         dispatch({
             type: 'MOVE_ARCHIVE_TO_NOW',
-            payload: index,
+            index,
         })
     }
 

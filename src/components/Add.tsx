@@ -3,12 +3,9 @@ import {
     Text, 
     View, 
     TouchableOpacity, 
-    StyleSheet,
     TextInput,
-    Button,
 } from 'react-native';
 import styles from './styles';
-import { FONT_SIZE } from '../constant';
 
 
 const Add = (props : { onAdd : any }) => {

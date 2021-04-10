@@ -9,9 +9,9 @@ import SwipeElement from './SwipeElement';
 import styles from './styles';
 import { NOW } from '../constant';
 
-const Task = ( props: { index: number, task: string, onEdit: any } ) => {
-    const [task, setTask] = useState(props.task);
-    const [done, setDone] = useState(false);
+const Task = ( props: { index: number, task: any, onEdit: any } ) => {
+    const [task, setTask] = useState(props.task.content);
+    const [done, setDone] = useState(props.task.done);
     const [edit, setEdit] = useState(false);
     //Handle double tap
     const [lastTap, setLastTap] = useState(0);
@@ -19,7 +19,8 @@ const Task = ( props: { index: number, task: string, onEdit: any } ) => {
     const [timer, setTimer] = useState(undefined);
 
     useEffect(() => {
-        setTask(props.task);
+        setTask(props.task.content);
+        setDone(props.task.done);
     },[props.task])
 
     //Handle style for when the elements are done
@@ -50,6 +51,10 @@ const Task = ( props: { index: number, task: string, onEdit: any } ) => {
             if ((now - lastTap) < DELAY) {
                 timer && clearTimeout(timer);
                 setDone(true);
+                props.onEdit(props.index, {
+                    content: task,
+                    done: true,
+                })
             } 
         }
         setLastTap(now);
@@ -73,8 +78,11 @@ const Task = ( props: { index: number, task: string, onEdit: any } ) => {
     // Set edit to fasle then send edit action
     const handleEditPress = () => {
         setEdit(false);
-        console.log(`test: ${props.index} and ${task}`)
-        props.onEdit(props.index, task);
+        const taskObj = {
+            content: task, 
+            done,
+        }
+        props.onEdit(props.index, taskObj);
     }
     const editable = () => {
         return (
