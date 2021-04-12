@@ -22,6 +22,7 @@ const SwipeElement = (props : { taskIndex: number, type: string }) => {
                 >
                     <Text style={styles.textDelete}>Delete</Text>
                 </TouchableOpacity>
+                
                 <TouchableOpacity 
                     style={styles.buttonArchive}
                     onPress={() => {

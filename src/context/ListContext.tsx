@@ -22,7 +22,7 @@ const initialState = {
 const reducer = (state : any, action : any) => {
     switch (action.type) {
         case 'ADD_NOW_TASK':
-            if (action.payload) {
+            if (action.task) {
                 return {
                     ...state,
                     now: [
@@ -35,7 +35,7 @@ const reducer = (state : any, action : any) => {
                 }
             }
         case 'DEL_NOW_TASK':
-            const newList = state.now.filter((item, index) => index !== action.payload);
+            const newList = state.now.filter((item, index) => index !== action.index);
             return {
                 ...state,
                 now: newList,
